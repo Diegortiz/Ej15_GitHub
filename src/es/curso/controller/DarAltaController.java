@@ -1,4 +1,4 @@
-package Controllers;
+package es.curso.controller;
 
 import es.curso.model.entity.Cliente;
 

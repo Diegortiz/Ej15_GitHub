@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Alta colegio</title>
+		<style type="text/css">
+			form{margin-left: 35%;
+				margin-top: 10%;
+				margin-bottom: 5%;
+			}
+			h2{
+				margin-left:35%;
+				
+			}
+			
+			body{
+				border:0.1em solid black;
+			}
+		</style>
+		<!--link rel="stylesheet"  href= "../css/estilo.css"/(Si el css estuviera en un 
+		archivo aparte e incluido en la carpeta css de WebContent)-->
+	</head>
+	
+	<body>
+	<h2>Alta cliente</h2>
+		<form action="Tienda/altaCliente" method="post" enctype="text/html">
+		<label>Nombre: </label>
+		<input type="text" name="nombre" id="nombre" value="" required="required"/>
+		<br/><br/><br/><br/>
+		
+		<labe>Apellidos: : </label>
+		<input type="text" name="apellidos id="apellidos" value="" required="required"/>
+		<br/><br/><br/><br/>
+		
+		<label>DNI: </label>
+		<input type="text" name="dni" id="dni">
+			
+		<br/><br/><br/><br/>
+		
+		<input type = "hidden" name="id" id="id"/>
+		
+		<br/><br/><br/><br/>
+		
+		<input type="submit" id="enviar" name="enviar" value="Enviar"/>
+		<input type="reset" id="borrar" name="borrar" value="Borrar"/>
+		
+		</form>
+	</body>
+</html>

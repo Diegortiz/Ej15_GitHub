@@ -23,6 +23,7 @@
 		</style>
 </head>
 <body>
+	<H2>Buscar por nombre</H2>
 	<form method = "get" action = "${pageContext.request.contextPath}/Tienda/buscarPorNombre" name="buscarPorNombre">
 	
 	<label>Nombre: </label>

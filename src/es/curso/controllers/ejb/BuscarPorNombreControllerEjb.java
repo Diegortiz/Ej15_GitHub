@@ -1,15 +1,23 @@
-package es.curso.controllers.ejb;
+package es.curso.controllers.ejb;//Ejb ->Enterprise java bean.
 
 import java.util.ArrayList;
 
+import es.curso.controllers.BuscarPorNombreController;
 import es.curso.model.entity.Cliente;
+import es.curso.persistence.model.dao.ClienteDao;
+import es.curso.persistence.model.dao.jdbc.ClienteDaoJdbc;
 
-public class BuscarPorNombreControllerEjb {
-
-	public ArrayList<Cliente> buscarPorNombre(String cadenaNombre) {
-		return null;
-		// TODO Auto-generated method stub
+public class BuscarPorNombreControllerEjb implements BuscarPorNombreController{
+	
+	@Override
+		public ArrayList<Cliente> buscarPorNombre(String cadenaNombre) {
+			ClienteDao clienteDao = new ClienteDaoJdbc();
+				return clienteDao.searchByName(cadenaNombre);
+		
 		
 	}
-	
+
 }
+		
+		
+	

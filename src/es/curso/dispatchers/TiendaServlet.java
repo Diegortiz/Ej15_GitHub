@@ -118,7 +118,7 @@ public class TiendaServlet extends HttpServlet {
 			//y redirigir hacia el jsp ListarTodos
 				rd = request.getRequestDispatcher("/jsp/listarTodos.jsp");
 				rd.forward(request, response);
-			
+				
 			break;
 		}
 		

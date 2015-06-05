@@ -24,7 +24,7 @@
 </head>
 <body>
 	<H2>Buscar por nombre</H2>
-	<form method = "get" action = "${pageContext.request.contextPath}/Tienda/buscarPorNombre" name="buscarPorNombre">
+	<form method = "post" action = "${pageContext.request.contextPath}/Tienda/buscarPorNombre" name="buscarPorNombre">
 	
 	<label>Nombre: </label>
 	<input type= "text" name="nombre" id="nombre">

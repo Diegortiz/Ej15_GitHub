@@ -13,7 +13,8 @@ public class BuscarPorNombreControllerEjb implements BuscarPorNombreController{
 		public ArrayList<Cliente> buscarPorNombre(String cadenaNombre) {
 			ClienteDao clienteDao = new ClienteDaoJdbc();
 				return clienteDao.searchByName(cadenaNombre);
-		
+			
+				
 		
 	}
 

@@ -71,7 +71,11 @@ public class TiendaServlet extends HttpServlet {
 			rd = request.getRequestDispatcher("/jsp/buscarPorNombre.jsp");
 			rd.forward(request,  response);
 			break;	
+	case "BuscarPorId":
 		
+			rd = request.getRequestDispatcher("/jsp/BuscarPorId.jsp");
+			rd.forward(request, response);
+			break;
 		}
 		
 	
@@ -120,6 +124,13 @@ public class TiendaServlet extends HttpServlet {
 				rd.forward(request, response);
 				
 			break;
+			
+		case "BuscarPorId":
+			
+			rd = request.getRequestDispatcher("/jsp/BuscarPorId");
+			rd.forward(request, response);
+			break;
+			
 		}
 		
 	}

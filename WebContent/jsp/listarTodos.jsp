@@ -56,7 +56,7 @@
 		<%for (Cliente c: clientes){ %>
 		<form action= "${pageContext.request.contextPath}/Tienda/BuscarPorId" method = "post"><!--for each y array(la c puede llamarse de cualquier forma-->
 		<tr id = "<%= c.getId()%>">
-			<td><input type ="text" name="Id" value = "<%= c.getId() %>" disabled ="disabled"/></td><!-- Para imprimir id, nombres, etc...como si fuera un 'syso'-->
+			<td><input type ="text" name="Id" value = "<%= c.getId() %>" /></td><!-- Para imprimir id, nombres, etc...como si fuera un 'syso'-->
 			<td><%=c.getNombres() %></td>
 			<td><%=c.getApellidos() %></td>
 			<td><%=c.getDni() %></td>

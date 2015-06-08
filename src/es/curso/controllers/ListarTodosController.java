@@ -1,4 +1,4 @@
-package es.curso.controllers.ejb;
+package es.curso.controllers;
 
 import java.util.ArrayList;
 

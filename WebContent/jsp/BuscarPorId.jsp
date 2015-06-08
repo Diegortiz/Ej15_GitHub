@@ -26,15 +26,15 @@
 	</head>
 	
 	<body>
-		<h2>Buscar por Id</h2>
-		<form method = "post" action="${pageContext.request.contextPath}/Tienda/buscarPorId" 
+		<h2>Borrar cliente por Id</h2>
+		<form method = "post" action="${pageContext.request.contextPath}/Tienda/BuscarPorId" 
 		name= "BuscarPorId">
 		
 		<label>Id: </label>
 		
 		<input type = "text" name="Id" id="Id"/>
-		<input type = "submit" name="borrar" value= "Borrar"/>
-		
+		<input type = "submit" name="borrar" value= "Borrar cliente"/>
+		<input type = "reset" name="Borrar" value= "Reiniciar"/>
 		</form>
 
 	</body>

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import es.curso.model.entity.Cliente;
 import es.curso.persistence.model.dao.ClienteDao;
 
-public class ClienteDaoJdbc implements ClienteDao{
+public  class ClienteDaoJdbc implements ClienteDao{
 	
 	private Connection cx;
 	
@@ -183,6 +183,31 @@ public class ClienteDaoJdbc implements ClienteDao{
 	
 	@Override
 	public void delete(Integer id) {
+		try {
+			// Establecer conexión.
+			abrirConexion();
+			//2.Preparar las sentencias.
+			PreparedStatement ps = cx.prepareStatement("DELETE FROM CLIENTE WHERE ID = ?");
+			//2.1Especificar lo que va en ?
+			ps.setInt(1, id);
+			//3.Ejecutar la sentencia.
+			ps.executeUpdate();//Este método devuelve un entero.
+			
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally{
+			
+			//4 Cerrar la conexión.
+			cerrarConexion();
+			
+		}
+		
+	}
+
+	@Override
+	public void read(Object id) {
 		// TODO Auto-generated method stub
 		
 	}

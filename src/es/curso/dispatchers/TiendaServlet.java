@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.curso.controllers.BuscarPorIdController;
+import es.curso.controllers.ejb.BuscarPorIdControllerEjb;
 import es.curso.controllers.ejb.BuscarPorNombreControllerEjb;
 import es.curso.controllers.ejb.DarAltaClienteControllerEjb;
 import es.curso.controllers.ejb.ListarTodosControllerEjb;
@@ -70,7 +72,8 @@ public class TiendaServlet extends HttpServlet {
 			
 			rd = request.getRequestDispatcher("/jsp/buscarPorNombre.jsp");
 			rd.forward(request,  response);
-			break;	
+			break;
+			
 	case "BuscarPorId":
 		
 			rd = request.getRequestDispatcher("/jsp/BuscarPorId.jsp");
@@ -127,8 +130,17 @@ public class TiendaServlet extends HttpServlet {
 			
 		case "BuscarPorId":
 			
-			rd = request.getRequestDispatcher("/jsp/BuscarPorId");
-			rd.forward(request, response);
+			//Recuperar el id tecleado en el form
+			int id = Integer.parseInt(request.getParameter("Id"));
+			
+			//Llamar al controlador
+			BuscarPorIdController buscarEjb = new BuscarPorIdControllerEjb();
+			buscarEjb.buscar(id);
+			
+			//y redirigir hacia el jsp BuscarPorId
+			
+			response.sendRedirect("/Ej15_GitHub/Tienda/listarTodos");
+			
 			break;
 			
 		}
@@ -136,4 +148,6 @@ public class TiendaServlet extends HttpServlet {
 	}
 	
 }
+			
+			
 			

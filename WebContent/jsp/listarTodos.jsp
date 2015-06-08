@@ -27,6 +27,13 @@
 			padding: 1em;
 			
 			}
+			
+			#btnSinBordes{
+			border: 0em;
+			background: transparent;
+			text-decoration: undeline;
+			}
+			
 		</style>
 
 
@@ -46,15 +53,21 @@
 			<th>Apellidos</th>
 			<th>DNI:</th>
 		</tr>
-		<%for (Cliente c: clientes){ %><!--for each y array(la c puede llamarse de cualquier forma-->
-		<tr><!-- El for each recorre todos los elementos del Array -->
-			<td><%=c.getId() %></td><!-- Para imprimir id, nombres, etc...como si fuera un 'syso'-->
+		<%for (Cliente c: clientes){ %>
+		<form action= "${pageContext.request.contextPath}/Tienda/BuscarPorId" method = "post"><!--for each y array(la c puede llamarse de cualquier forma-->
+		<tr id = "<%= c.getId()%>">
+			<td><input type ="text" name="Id" value = "<%= c.getId() %>" disabled ="disabled"/></td><!-- Para imprimir id, nombres, etc...como si fuera un 'syso'-->
 			<td><%=c.getNombres() %></td>
 			<td><%=c.getApellidos() %></td>
 			<td><%=c.getDni() %></td>
+			
+			
+			<td><input type = "submit" id = "btnSinBordes"  
+			value = "Eliminar" name="btn<%= c.getId()%>"/></td>
+			
 		</tr>
-		
-		<%} %>
+		</form>
+		<% } %>
 		<!--  Las siguientes tr se construyen dinámicamente usando instrucciones java embebidas-->
 	</table>
 	

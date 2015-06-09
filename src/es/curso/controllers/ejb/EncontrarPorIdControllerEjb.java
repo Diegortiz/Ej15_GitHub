@@ -22,4 +22,9 @@ public class EncontrarPorIdControllerEjb implements EncontrarPorIdController{
 		
 	}
 
+	public void buscar(int id) {
+		
+		
+	}
+
 }

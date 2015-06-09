@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.curso.controllers.ActualizarClienteController;
 import es.curso.controllers.BuscarPorIdController;
+import es.curso.controllers.ejb.ActualizarClienteControllerEjb;
 import es.curso.controllers.ejb.BuscarPorIdControllerEjb;
 import es.curso.controllers.ejb.BuscarPorNombreControllerEjb;
 import es.curso.controllers.ejb.DarAltaClienteControllerEjb;
+import es.curso.controllers.ejb.EncontrarPorIdControllerEjb;
 import es.curso.controllers.ejb.ListarTodosControllerEjb;
 import es.curso.model.entity.Cliente;
 
@@ -79,6 +82,19 @@ public class TiendaServlet extends HttpServlet {
 			rd = request.getRequestDispatcher("/jsp/BuscarPorId.jsp");
 			rd.forward(request, response);
 			break;
+			
+	case "EncontrarPorId":
+		
+			rd = request.getRequestDispatcher("/jsp/EncontrarPorId.jsp");
+			rd.forward(request, response);
+			break;
+			
+			
+	case "ActualizarCliente":
+		
+			rd = request.getRequestDispatcher("/jsp/ActualizarCliente.jsp");
+			rd.forward(request, response);
+			break;
 		}
 		
 	
@@ -134,14 +150,39 @@ public class TiendaServlet extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("Id"));
 			
 			//Llamar al controlador
-			BuscarPorIdController buscarEjb = new BuscarPorIdControllerEjb();
-			buscarEjb.buscar(id);
+			BuscarPorIdControllerEjb buscarEjb = new BuscarPorIdControllerEjb();
+			buscarEjb.borrar(id);
 			
 			//y redirigir hacia el jsp BuscarPorId
 			
 			response.sendRedirect("/Ej15_GitHub/Tienda/listarTodos");
 			
 			break;
+			
+		case "EncontrarPorId":
+			
+			int Id = Integer.parseInt(request.getParameter("Id"));
+			
+			EncontrarPorIdControllerEjb EncontrarEjb = new EncontrarPorIdControllerEjb();
+			EncontrarEjb.encontrar(Id);
+			
+			response.sendRedirect("/Ej15_GitHub/Tienda/listarTodos");
+			break;
+			
+		case "ActualizarCliente"://Recuperar los datos que vienen del formulario.
+			
+			int idCliente = Integer.parseInt(request.getParameter("Id"));
+			String nombresCliente = request.getParameter("nombres");
+			String apellidosCliente = request.getParameter("apellidos");
+			String dniCliente = request.getParameter("dni");
+			Cliente clienteModif = new Cliente(idCliente, nombresCliente, apellidosCliente, dniCliente);
+			
+			ActualizarClienteController actualizarEjb = new ActualizarClienteControllerEjb();
+			actualizarEjb.actualizar(clienteModif);
+			
+			response.sendRedirect("/Ej15_GitHub/Tienda/listarTodos");
+			break;
+			
 			
 		}
 		

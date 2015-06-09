@@ -8,18 +8,23 @@ import es.curso.persistence.model.dao.jdbc.ClienteDaoJdbc;
 public class BuscarPorIdControllerEjb implements BuscarPorIdController{
 
 	
-	@Override
-	public void buscar(int id) {
+
+	public void borrar(int id) {
 		ClienteDao clienteDao = new ClienteDaoJdbc();
-		//Verificar si no tiene deudas...
+		
 		clienteDao.delete(id);
-		//Mandarle un correo al usuario diciéndole que fue dado de baja.
 		
 		
 	}
 
 	@Override
 	public void borrar(Cliente cliente) {
+		
+		
+	}
+
+	@Override
+	public void buscar(int id) {
 		
 		
 	}

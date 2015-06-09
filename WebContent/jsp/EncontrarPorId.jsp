@@ -31,7 +31,7 @@
 	
 	<label>Id: </label>
 	
-	<input type = "text" name = "encontrar" id="Encontrar"/>
+	<input type = "text" name = "Id" id="Id"/>
 	<input type = "submit" name="buscar" value= "Buscar"/>
 	<input type = "reset" name="borrar" value= "Borrar"/>
 	

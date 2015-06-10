@@ -44,9 +44,16 @@ public  class ClienteDaoJdbc implements ClienteDao{
 				//Esta instrucción devuelve como resultado el número de
 				//registros (o filas) afectadas.
 				
-				//3.1Hacer el commit...
-			} catch (SQLException e) {
+				//3.1 Hacer el commit...
 				
+				cx.commit();
+			} catch (SQLException e) {
+				try {
+					cx.rollback();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				e.printStackTrace();
 			}
 		} catch (Exception e) {
@@ -113,8 +120,8 @@ public  class ClienteDaoJdbc implements ClienteDao{
 					"jdbc:mysql://localhost:3306/Tienda",
 					"rootTienda",
 					"rootTienda");
-			//3.Iniciar el autoComit en false
-			//cx.setAutoCommit(false);
+			//3.Iniciar el autoComit en false para gestionar transacciones.
+			cx.setAutoCommit(false);
 		} catch (ClassNotFoundException e) {
 			
 			e.printStackTrace();
@@ -184,7 +191,7 @@ public  class ClienteDaoJdbc implements ClienteDao{
 				
 			//2.Preparar la sentencia
 				PreparedStatement ps = cx.prepareStatement(
-						"UPDATE CLIENTE SET NOMBRES = ?, APELLIDOS = ?, DNI = ? WHERE ID = ?");
+					"UPDATE CLIENTE SET NOMBRES = ?, APELLIDOS = ?, DNI = ? WHERE ID = ?");
 				
 			//2.1 Rellenar los ?
 				ps.setString(1, cliente.getNombres());
@@ -194,11 +201,17 @@ public  class ClienteDaoJdbc implements ClienteDao{
 				
 			//3. Ejecutar la sentencia.
 				ps.executeUpdate();
-			
-		
+				
+			//3.1 Hacer el commit 
+				cx.commit();
 				
 		} catch (SQLException e) {
-			
+			try {
+				cx.rollback();
+			} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}finally{
 				//4. Cerrar conexión.
@@ -218,10 +231,16 @@ public  class ClienteDaoJdbc implements ClienteDao{
 			ps.setInt(1, id);
 			//3.Ejecutar la sentencia.
 			ps.executeUpdate();//Este método devuelve un entero.
-			
+			//3.1 Hacer el commit
+			cx.commit();
 			
 		} catch (SQLException e) {
-			
+			try {
+				cx.rollback();
+			} catch (SQLException e1) {
+				
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}finally{
 			
@@ -231,7 +250,7 @@ public  class ClienteDaoJdbc implements ClienteDao{
 		}
 		
 	}
-
+	
 	@Override
 	public void read(Object id) {
 		// TODO Auto-generated method stub
@@ -239,6 +258,7 @@ public  class ClienteDaoJdbc implements ClienteDao{
 	}
 	
 }
+			
 		
 				
 				

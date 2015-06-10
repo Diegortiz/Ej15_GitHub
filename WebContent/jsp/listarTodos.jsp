@@ -14,7 +14,7 @@
 			
 			table{
 			border: 0.1em solid blue;
-			/*margin-left:5%;*/
+			margin-left: 1%;
 			}
 			th{
 			border: 0.5em solid lightblue;
@@ -24,7 +24,7 @@
 			
 			td{
 			border: 1em solid blue;
-			padding: 1em;
+			padding: 0.5em;
 			
 			}
 			
@@ -40,6 +40,12 @@
 			text-decoration: undeline;
 			}
 			
+			#Btn3{
+			border: 0em solid: black;
+			
+			text-decoration: undeline;
+			}
+			
 		</style>
 		
 		<script type= "text/javascript">
@@ -51,21 +57,25 @@
 				if(boton.value =="Actualizar")
 					formulario.action = 
 						"${pageContext.request.contextPath}/Tienda/ActualizarCliente";
-					else
-						if(boton.value == "Eliminar")
-							formulario.action =
-								"${pageContext.request.contextPath}/Tienda/BuscarPorId";
-					formulario.submit();
+					
+				if(boton.value == "Eliminar")
+					formulario.action =
+						"${pageContext.request.contextPath}/Tienda/BuscarPorId";
+			
+					
+				//if(boton.value =="Editar")
+					//formulario.action =
+						//"${pageContext.request.contextPath}/Tienda/ActualizarCliente";
+			
+					//formulario.submit();
+					
 			}
 					
 			
 			
-		
-		
-		
-		
 		</script>
-
+		
+		
 </head>
 <body>
 	<h1><%=request.getAttribute("titulo") %></h1>
@@ -102,6 +112,12 @@
 				value = "Actualizar" name = "btn2<%= c.getId()%>"
 				 onclick ="enviar(this);"/></td>
 			
+			
+				<td><input type = "submit" id = "Btn3"
+				value = "Editar" name = "btn3<%= c.getId()%>" 
+				onclick = "enviar(this);"></td>
+				
+				
 			</tr>
 		</form>
 		<% } %>
@@ -110,4 +126,7 @@
 	
 </body>
 </html>
+		
+		
+
 				

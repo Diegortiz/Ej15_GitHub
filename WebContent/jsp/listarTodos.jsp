@@ -4,49 +4,9 @@
 <%@page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Listado de cliente</title>
-		<style type="text/css">
-			
-			
-			table{
-			border: 0.1em solid blue;
-			margin-left: 1%;
-			}
-			th{
-			border: 0.5em solid lightblue;
-			color: black;
-			
-			}
-			
-			td{
-			border: 1em solid blue;
-			padding: 0.5em;
-			
-			}
-			
-			#btnSinBordes{
-			border: 0em;
-			background: transparent;
-			text-decoration: undeline;
-			}
-			
-			#OtroBtn{
-			border: 0em;
-			background: transparent;
-			text-decoration: undeline;
-			}
-			
-			#Btn3{
-			border: 0em solid: black;
-			
-			text-decoration: undeline;
-			}
-			
-		</style>
+
+		<%@ include file="../Plantillas/Header.jsp" %>
+		
 		
 		<script type= "text/javascript">
 			
@@ -59,15 +19,11 @@
 						"${pageContext.request.contextPath}/Tienda/ActualizarCliente";
 					
 				if(boton.value == "Eliminar")
-					formulario.action =
+					formulario.action = 
 						"${pageContext.request.contextPath}/Tienda/BuscarPorId";
 			
 					
-				//if(boton.value =="Editar")
-					//formulario.action =
-						//"${pageContext.request.contextPath}/Tienda/ActualizarCliente";
-			
-					//formulario.submit();
+			   formulario.submit();
 					
 			}
 					
@@ -76,8 +32,8 @@
 		</script>
 		
 		
-</head>
-<body>
+
+
 	<h1><%=request.getAttribute("titulo") %></h1>
 	<!-- Tabla html dinámicamente-->
 	<span><%=LocalDateTime.now() %></span>
@@ -124,9 +80,7 @@
 		<!--  Las siguientes tr se construyen dinámicamente usando instrucciones java embebidas-->
 	</table>
 	
-</body>
-</html>
-		
+	<%@ include file="../Plantillas/Footer.jsp" %>
 		
 
 				

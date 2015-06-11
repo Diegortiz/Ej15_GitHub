@@ -52,7 +52,7 @@ public class TiendaServlet extends HttpServlet {
 	RequestDispatcher rd;//Dispatcher que redirecciona a otra página
 	switch(action){
 		case"altaCliente"://Se debe redirigir al formulario altaCliente.
-			rd = request.getRequestDispatcher("/ArchivosHtml/altaClienteView.html");
+			rd = request.getRequestDispatcher("/jsp/altaCliente.jsp");
 			rd.forward(request, response);
 			break;
 				
@@ -110,7 +110,7 @@ public class TiendaServlet extends HttpServlet {
 		switch(action){
 		case "altaCliente" :
 			//Recuperar los datos tecleados en el formulario
-				String nombres = request.getParameter("nombre");
+				String nombres = request.getParameter("nombres");
 				String apellidos = request.getParameter("apellidos");
 				String dni = request.getParameter("dni");
 				Cliente cliente = new Cliente(0, nombres, apellidos, dni);
@@ -120,7 +120,7 @@ public class TiendaServlet extends HttpServlet {
 				
 				controlador.agregar(cliente);
 				
-				rd = request.getRequestDispatcher("/index.html");
+				rd = request.getRequestDispatcher("/index.jsp");
 				rd.forward(request,  response);
 			break;
 		case "buscarPorNombre":

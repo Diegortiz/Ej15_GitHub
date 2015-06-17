@@ -10,16 +10,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import es.curso.controllers.ActualizarClienteController;
 import es.curso.controllers.BuscarPorIdController;
+import es.curso.controllers.LoginController;
 import es.curso.controllers.ejb.ActualizarClienteControllerEjb;
 import es.curso.controllers.ejb.BuscarPorIdControllerEjb;
 import es.curso.controllers.ejb.BuscarPorNombreControllerEjb;
 import es.curso.controllers.ejb.DarAltaClienteControllerEjb;
 import es.curso.controllers.ejb.EncontrarPorIdControllerEjb;
 import es.curso.controllers.ejb.ListarTodosControllerEjb;
+import es.curso.controllers.ejb.LoginControllerejb;
 import es.curso.model.entity.Cliente;
+import es.curso.model.entity.Usuario;
 
 /**
  * Servlet implementation class TiendaServlet
@@ -95,6 +99,12 @@ public class TiendaServlet extends HttpServlet {
 			rd = request.getRequestDispatcher("/jsp/ActualizarCliente.jsp");
 			rd.forward(request, response);
 			break;
+			
+	case "login":
+		
+		rd = request.getRequestDispatcher("/login.jsp");
+		rd.forward(request,response);
+		break;
 		}
 		
 	
@@ -183,6 +193,36 @@ public class TiendaServlet extends HttpServlet {
 			response.sendRedirect("/Ej15_GitHub/Tienda/listarTodos");
 			break;
 			
+		case "login":
+			
+			//recuperar los datos del formulario
+			String userName = request.getParameter("userName");
+			String password = request.getParameter("password");
+			//invocar al controlador
+			LoginController loginController = new LoginControllerejb();
+			Usuario usuario = loginController.login(userName, password);
+			
+			if(usuario!=null){
+				//si el usuario existe...meter los datos de ese usuario en la sesión.
+				HttpSession session = request.getSession();
+				session = request.getSession(true);
+				
+				//Aquí tengo que rellenar los datos del usuario
+				String nombreCompleto = usuario.getNombre() + ""+ usuario.getApellido();
+				session.setAttribute("nombreCompleto", nombreCompleto );  
+				session.setAttribute("userName", usuario.getUserName());
+				rd = request.getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+				
+				
+			}else
+			{
+				//si no existe redirigir hacia login otra vez.
+				response.sendRedirect("login");
+			}
+			
+			
+		break;
 			
 		}
 		

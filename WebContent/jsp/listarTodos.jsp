@@ -8,6 +8,27 @@
 		<%@ include file="../Plantillas/Header.jsp" %>
 		
 		
+		<style type="text/css">
+			
+			
+			table{
+			border: 0.1em solid blue;
+			margin-left: 40%;
+			margin-top: 30%;
+			}
+			th{
+			color: black;
+			}
+			
+			td{
+			border: 1em solid blue;
+			
+			/*width:10%;*/
+			}
+		</style>
+		
+		
+		
 		<script type= "text/javascript">
 			
 		
@@ -81,6 +102,18 @@
 	</table>
 	
 	<%@ include file="../Plantillas/Footer.jsp" %>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 
 				

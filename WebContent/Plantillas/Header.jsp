@@ -40,7 +40,7 @@
 			
 			<a href = "/Ej15_GitHub/Tienda/ActualizarCliente">Buscar cliente y actualizarlo</a>
 			
-			
+			<a href = "/Ej15_GitHub/Tienda/login">Registrar usuario</a>
 			
 			
 			

@@ -53,62 +53,93 @@ public class TiendaServlet extends HttpServlet {
 	String action = request.getPathInfo().substring(1);
 	request.setCharacterEncoding("UTF-8");
 	String titulo = "Sin título";
-	RequestDispatcher rd;//Dispatcher que redirecciona a otra página
-	switch(action){
-		case"altaCliente"://Se debe redirigir al formulario altaCliente.
-			rd = request.getRequestDispatcher("/jsp/altaCliente.jsp");
-			rd.forward(request, response);
-			break;
-				
-		case "listarTodos": //Se invocará al controlador adecuado
-						//que obtendrá todos los clientes.
-			ListarTodosControllerEjb todos = new ListarTodosControllerEjb();
-			ArrayList<Cliente> clientes = todos.listarTodos();
-			request.setAttribute("clientes", clientes);//En el objeto request viajan los datos de todo el ArrayList
-			todos.listarTodos();
-			titulo="Listado general de clientes";
-			request.setAttribute("titulo", titulo);
-			rd = request.getRequestDispatcher("/jsp/listarTodos.jsp");//Se redirecciona a listar todos
-			rd.forward(request,  response);
-			break;	
-			
-	case "buscarPorNombre":
-			
-			//Esta petición redirige a otra página.
-			//Se redirigirá hacia el formulario buscar por nombre.
-			
-			rd = request.getRequestDispatcher("/jsp/buscarPorNombre.jsp");
-			rd.forward(request,  response);
-			break;
-			
-	case "BuscarPorId":
+	
+	RequestDispatcher rd ;//Dispatcher que redirecciona a otra página
+	HttpSession miSession = request.getSession();
+	
+	//Preguntar si la petición es login
+	if(action.equals("login")){
 		
-			rd = request.getRequestDispatcher("/jsp/BuscarPorId.jsp");
-			rd.forward(request, response);
-			break;
-			
-	case "EncontrarPorId":
+		//Invalidar la sesión.
+		miSession.invalidate();
 		
-			rd = request.getRequestDispatcher("/jsp/EncontrarPorId.jsp");
-			rd.forward(request, response);
-			break;
-			
-			
-	case "ActualizarCliente":
-		
-			rd = request.getRequestDispatcher("/jsp/ActualizarCliente.jsp");
-			rd.forward(request, response);
-			break;
-			
-	case "login":
-		
+		//Redirigir a login
 		rd = request.getRequestDispatcher("/login.jsp");
 		rd.forward(request,response);
-		break;
-		}
-		
-	
 	}
+	else{
+				//Hago las otras opciones.
+				//Preguntar si la sesión está activa.
+				//Hacer el switch.
+		if(miSession.getAttribute("userName")!=null){
+			switch(action){
+				case"altaCliente"://Se debe redirigir al formulario altaCliente.
+					rd = request.getRequestDispatcher("/jsp/altaCliente.jsp");
+					rd.forward(request, response);
+					break;
+						
+				case "listarTodos": //Se invocará al controlador adecuado
+								//que obtendrá todos los clientes.
+					ListarTodosControllerEjb todos = new ListarTodosControllerEjb();
+					ArrayList<Cliente> clientes = todos.listarTodos();
+					request.setAttribute("clientes", clientes);//En el objeto request viajan los datos de todo el ArrayList
+					todos.listarTodos();
+					titulo="Listado general de clientes";
+					request.setAttribute("titulo", titulo);
+					rd = request.getRequestDispatcher("/jsp/listarTodos.jsp");//Se redirecciona a listar todos
+					rd.forward(request,  response);
+					break;	
+					
+			case "buscarPorNombre":
+					
+					//Esta petición redirige a otra página.
+					//Se redirigirá hacia el formulario buscar por nombre.
+					
+					rd = request.getRequestDispatcher("/jsp/buscarPorNombre.jsp");
+					rd.forward(request,  response);
+					break;
+					
+			case "BuscarPorId":
+				
+					rd = request.getRequestDispatcher("/jsp/BuscarPorId.jsp");
+					rd.forward(request, response);
+					break;
+					
+			case "EncontrarPorId":
+				
+					rd = request.getRequestDispatcher("/jsp/EncontrarPorId.jsp");
+					rd.forward(request, response);
+					break;
+					
+					
+			case "ActualizarCliente":
+				
+					rd = request.getRequestDispatcher("/jsp/ActualizarCliente.jsp");
+					rd.forward(request, response);
+					break;
+					
+			
+				
+				
+			case "logout":  
+				
+				miSession.invalidate();
+				rd = request.getRequestDispatcher("/login.jsp");
+				rd.forward(request,response);
+				break;
+				
+			}
+			
+		}//Cierre del if que verifica la sesión.
+		else{
+			response.sendRedirect("login");
+		}
+	}
+				
+}
+	
+	
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -117,6 +148,8 @@ public class TiendaServlet extends HttpServlet {
 		String action = request.getPathInfo().substring(1);
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher rd;
+		
+		if(request.getSession().getAttribute("userName")!=null){
 		switch(action){
 		case "altaCliente" :
 			//Recuperar los datos tecleados en el formulario
@@ -193,42 +226,51 @@ public class TiendaServlet extends HttpServlet {
 			response.sendRedirect("/Ej15_GitHub/Tienda/listarTodos");
 			break;
 			
-		case "login":
+		
 			
-			//recuperar los datos del formulario
-			String userName = request.getParameter("userName");
-			String password = request.getParameter("password");
-			//invocar al controlador
-			LoginController loginController = new LoginControllerejb();
-			Usuario usuario = loginController.login(userName, password);
 			
-			if(usuario!=null){
-				//si el usuario existe...meter los datos de ese usuario en la sesión.
-				HttpSession session = request.getSession();
-				session = request.getSession(true);
+	
+			
+			}//Fin del switch
+		
+		}//Fin del if
+	
+		else{
+			if(action.equals("login")){
+				//recuperar los datos del formulario
+				String userName = request.getParameter("userName");
+				String password = request.getParameter("password");
+				//invocar al controlador
+				LoginController loginController = new LoginControllerejb();
+				Usuario usuario = loginController.login(userName, password);
 				
-				//Aquí tengo que rellenar los datos del usuario
-				String nombreCompleto = usuario.getNombre() + ""+ usuario.getApellido();
-				session.setAttribute("nombreCompleto", nombreCompleto );  
-				session.setAttribute("userName", usuario.getUserName());
-				rd = request.getRequestDispatcher("/index.jsp");
-				rd.forward(request, response);
+				if(usuario!=null){
+					//si el usuario existe...meter los datos de ese usuario en la sesión.
+					HttpSession session = request.getSession(false);
+					session.invalidate();
+					session = request.getSession(true);
+					session.setMaxInactiveInterval(30);
+					
+					//Aquí tengo que rellenar los datos del usuario
+					String nombreCompleto = usuario.getNombre() + ""+ usuario.getApellido();
+					session.setAttribute("nombreCompleto", nombreCompleto );  
+					session.setAttribute("userName", usuario.getUserName());
+					rd = request.getRequestDispatcher("/index.jsp");
+					rd.forward(request, response);
+					
+					
+				}else
+				{
+					//si no existe redirigir hacia login otra vez.
+					response.sendRedirect("login");
+				}
 				
-				
-			}else
-			{
-				//si no existe redirigir hacia login otra vez.
-				response.sendRedirect("login");
 			}
-			
-			
-		break;
 			
 		}
 		
 	}
 	
-}
-			
+}			
 			
 			

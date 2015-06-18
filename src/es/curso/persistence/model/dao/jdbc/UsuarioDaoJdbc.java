@@ -27,7 +27,7 @@ public class UsuarioDaoJdbc implements usuarioDao {
 			//Preparar la sentencia
 			PreparedStatement ps = 
 					cx.prepareStatement
-					("SELECT * FROM USUARIO WHERE userName = ? AND password = ?");
+					("SELECT * FROM USUARIO WHERE userName=? AND password=?");
 			//2.1Rellenar los ?
 			ps.setString(1, userName);
 			ps.setString(2, password);
@@ -40,7 +40,7 @@ public class UsuarioDaoJdbc implements usuarioDao {
 				usuario.setId(consulta.getInt("id"));
 				usuario.setNombre(consulta.getString("nombre"));
 				usuario.setApellido(consulta.getString("apellido"));
-				usuario.setUserName(consulta.getString("username"));
+				usuario.setUserName(consulta.getString("userName"));
 				usuario.setPassWord(consulta.getString("password"));
 				
 			}

@@ -25,7 +25,16 @@
 
 
 </head>
+
 <body>
+<% 
+response.setHeader("Cache-Control","no-cache");
+response.setHeader("Cache-control", "no-store");
+response.setDateHeader("Expires",0);
+response.setHeader("Pragma", "no-cache");
+%>
+<% HttpSession miSession = request.getSession();%>
+<% if(miSession.getAttribute("userName")!= null) {%>
 	<a href = "/Ej15_GitHub/Tienda/altaCliente" title="Alta cliente" id="alta">
 			 Alta cliente</a><!--  Se dirige al servlet y el sevlet redirige al formulario Alta cliente-->
 			 
@@ -40,9 +49,15 @@
 			
 			<a href = "/Ej15_GitHub/Tienda/ActualizarCliente">Buscar cliente y actualizarlo</a>
 			
+			<a href = "/Ej15_GitHub/Tienda/logout">Cerrar sesión</a>
+			
+			<p> Usuario: <%=miSession.getAttribute("userName")%></p>
+			<p>¡Hola! <%=miSession.getAttribute("nombreCompleto") %></p>
+			<p> Máximo periodo de inactividad: <%= miSession.getMaxInactiveInterval() %> segundos</p>
+			<%}else 
+			  { %>
 			<a href = "/Ej15_GitHub/Tienda/login">Registrar usuario</a>
-			
-			
+			<%} %>
 			
 			
 			

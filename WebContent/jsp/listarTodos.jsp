@@ -13,8 +13,7 @@
 			
 			table{
 			border: 0.1em solid blue;
-			margin-left: 40%;
-			margin-top: 30%;
+			
 			}
 			th{
 			color: black;
